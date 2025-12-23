@@ -36,7 +36,7 @@ const Home = () => (
 const App = () => {
   return (
     <Router>
-      {/* Added relative positioning to wrapper to contain the fixed background */}
+      {/* Added relative positioning to ntain the fixed background */}
       <div className="relative min-h-screen text-slate-200 selection:bg-teal-500/30 font-sans">
         <GlobalBackground />
         
