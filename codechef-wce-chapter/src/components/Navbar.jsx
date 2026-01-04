@@ -40,9 +40,16 @@ const Navbar = () => {
           )}
           <Link to="/team" className="hover:text-teal-400 transition-all">Team</Link>
         </div>
-        <button className="px-6 py-2.5 rounded-full bg-teal-600 text-white font-medium hover:bg-teal-700 transition-all shadow-lg shadow-teal-500/25 hover:shadow-teal-500/40 transform hover:-translate-y-0.5">
-          Join Community
-        </button>
+        <a 
+          href="https://chat.whatsapp.com/DGAc2WiYg6l73plsa1cPNL" 
+          target="_blank" 
+          rel="noopener noreferrer"
+        >
+          <button className="px-6 py-2.5 rounded-full bg-teal-600 text-white font-medium hover:bg-teal-700 transition-all shadow-lg shadow-teal-500/25 hover:shadow-teal-500/40 transform hover:-translate-y-0.5">
+            Join Community
+          </button>
+        </a>
+
       </div>
     </nav>
   );
