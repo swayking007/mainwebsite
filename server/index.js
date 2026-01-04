@@ -1,5 +1,5 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const connectDB = require('./db');
 const cors = require('cors');
 const dotenv = require('dotenv');
 
@@ -18,9 +18,15 @@ app.use(express.static('public')); // This serves your HTML form
 app.use(express.json());
 
 // Database Connection
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('✅ MongoDB Connected'))
-  .catch(err => console.log('❌ MongoDB Error:', err));
+app.use(async (req, res, next) => {
+  try {
+    await connectDB(); // Wait for DB to be ready
+    next(); // Continue to the routes
+  } catch (error) {
+    console.error("Database connection failed:", error);
+    res.status(500).json({ error: "Database connection failed" });
+  }
+});
 
 // Routes
 app.use('/api/members', memberRoutes);
