@@ -1,48 +1,82 @@
 const express = require('express');
-const connectDB = require('./config/db');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const path = require('path'); // <--- 1. ADD THIS IMPORT
+const path = require('path');
+const mongoose = require('mongoose');
 
+// Load environment variables
 dotenv.config();
 
 const memberRoutes = require('./routes/members');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
-app.use(cors());
-app.use(express.static('public')); 
+// --- 1. CORS & Middleware ---
+app.use(cors({
+  // Allow requests from your frontend domains or localhost
+  origin: "*", 
+  methods: ["GET", "POST"],
+  credentials: true
+}));
+app.use(express.static('public')); // Serves files from 'public' folder
 app.use(express.json());
 
-// --- 2. ADD THIS ROUTE TO SHOW THE FORM ---
-// This tells the server: "If user goes to /register, show them the index.html file"
-app.get('/register', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html')); 
-  // NOTE: If your file is named 'admin.html', change 'index.html' to 'admin.html' above
-});
+// --- 2. Database Connection Helper (Prevents Vercel Timeouts) ---
+let cached = global.mongoose;
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
+}
 
-// Database Connection Middleware
+async function connectDB() {
+  if (cached.conn) return cached.conn;
+
+  if (!cached.promise) {
+    const opts = { bufferCommands: false };
+    cached.promise = mongoose.connect(process.env.MONGO_URI, opts).then((mongoose) => {
+      console.log("✅ New MongoDB Connection Established");
+      return mongoose;
+    });
+  }
+  try {
+    cached.conn = await cached.promise;
+  } catch (e) {
+    cached.promise = null;
+    throw e;
+  }
+  return cached.conn;
+}
+
+// Connect to DB before every request
 app.use(async (req, res, next) => {
   try {
     await connectDB();
     next();
   } catch (error) {
-    console.error("Database connection failed:", error);
+    console.error("❌ Database connection failed:", error);
     res.status(500).json({ error: "Database connection failed" });
   }
 });
 
+// --- 3. Routes ---
+
+// Serve the HTML Form at /register
+app.get('/register', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// API Routes
 app.use('/api/members', memberRoutes);
 
 app.get('/', (req, res) => {
   res.send('CodeChef WCE API is running...');
 });
 
-// Export for Vercel
+// --- 4. Start Server (Local) or Export (Vercel) ---
 if (process.env.NODE_ENV !== 'production') {
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
 }
+
 module.exports = app;
