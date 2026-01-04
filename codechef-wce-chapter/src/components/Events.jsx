@@ -31,36 +31,66 @@ const EventCard = ({ title, date, desc, tags, imageColor }) => (
 );
 
 const Events = () => {
-  const eventsList = [
-    {
-      title: "WCPC 2025",
-      date: "Oct 2, 2025",
-      desc: "The flagship Walchand Collegiate Programming Contest. 27 shortlisted teams battled in the offline round at Main CCF. Chief Guest Mr. Vivek Gupta (ICPC World Finalist) inspired students.",
-      tags: ["Contest", "Offline", "VivekGupta"],
-      imageColor: "from-teal-500 to-cyan-600"
-    },
-    {
-      title: "C++ Bootcamp",
-      date: "Jan 19-20, 2025",
-      desc: "A power-packed 2-day bootcamp covering C++ fundamentals, STL containers, and OOP concepts. Conducted in collaboration with ACSES to lay a strong foundation for juniors.",
-      tags: ["Workshop", "C++", "ACSES"],
-      imageColor: "from-emerald-500 to-green-600"
-    },
-    {
-      title: "Coffee With Chef",
-      date: "Periodic",
-      desc: "Exclusive sessions with industry experts like Gaurish Baliga (Google) and Prajwal Shah (CRED). Candid talks on cracking FAANG interviews and mastering CP.",
-      tags: ["TalkShow", "Alumni", "Guidance"],
-      imageColor: "from-amber-500 to-orange-600"
-    },
-    {
-      title: "Code Infinity (GIM)",
-      date: "Sept 22, 2024",
-      desc: "General Interest Meet at Tilak Hall. A grand welcome for freshers involving games, club introduction, and the unveiling of our roadmap for the year.",
-      tags: ["Freshers", "GIM", "TilakHall"],
-      imageColor: "from-fuchsia-500 to-rose-600"
-    }
-  ];
+ const eventsList = [
+  {
+    title: "WCPC 2025",
+    date: "Oct 2, 2025",
+    desc: "Flagship offline programming contest at Main CCF. 27 teams competed. Guest speaker: Mr. Vivek Gupta (ICPC Finalist).",
+    tags: ["Contest", "Offline", "ICPC"],
+    imageColor: "from-teal-500 to-cyan-600"
+  },
+  {
+    title: "C++ Bootcamp",
+    date: "Jan 19–20, 2025",
+    desc: "2-day workshop on C++ basics, STL, and OOP fundamentals in collaboration with ACSES.",
+    tags: ["Workshop", "C++", "STL"],
+    imageColor: "from-emerald-500 to-green-600"
+  },
+  {
+    title: "Coffee With Chef",
+    date: "Periodic",
+    desc: "Expert sessions with alumni from Google & CRED on CP growth and interview insights.",
+    tags: ["Talk", "Alumni", "Guidance"],
+    imageColor: "from-amber-500 to-orange-600"
+  },
+  {
+    title: "Interstellar (GIM)",
+    date: "Sept 21, 2025",
+    desc: "Freshers meet with club intro, fun activities, and annual roadmap reveal at Tilak Hall.",
+    tags: ["Freshers", "GIM", "Roadmap"],
+    imageColor: "from-fuchsia-500 to-rose-600"
+  },
+
+  {
+    title: "PCD (Post Contest Discussions)",
+    date: "Weekly",
+    desc: "Breakdown of recent CodeChef & Codeforces contest problem approaches.",
+    tags: ["Discussion", "Approach", "Contests"],
+    imageColor: "from-teal-500 to-cyan-600"
+  },
+  {
+    title: "Algorithm Arcade",
+    date: "June–July 2025",
+    desc: "Team CP topic presentations followed by a concept-based club contest.",
+    tags: ["Teams", "Algorithms", "Contest"],
+    imageColor: "from-purple-500 to-indigo-600"
+  },
+  {
+    title: "Clash of Code",
+    date: "December 2025",
+    desc: "4-week CP sprint with weekly challenge sheets and practice tasks.",
+    tags: ["Practice", "Sprint", "CP"],
+    imageColor: "from-blue-500 to-sky-600"
+  },
+  {
+    title: "Cookbook 3.0",
+    date: "2026",
+    desc: "Student-led sessions on advanced DSA with hands-on problem solving.",
+    tags: ["DSA", "Learning", "Community"],
+    imageColor: "from-fuchsia-500 to-rose-600"
+  }
+];
+
 
   return (
     <section id="events" className="py-24 bg-slate-950 border-b border-slate-900">
