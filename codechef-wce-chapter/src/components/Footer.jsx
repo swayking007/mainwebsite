@@ -1,6 +1,8 @@
 import React from 'react';
-import { Terminal, Instagram, Linkedin, Github, Zap, Server, MapPin, Mail, Users } from 'lucide-react';
+import { Terminal, Instagram, Linkedin, Github, Zap, Server, MapPin, Mail, Users, Youtube } from 'lucide-react';
 import SectionHeader from './SectionHeader';
+import Logo from "../assets/logo.jpg";
+
 
 const StaffCard = ({ name, role, color, iconColor }) => (
   <div className="bg-slate-900 p-10 rounded-3xl border border-slate-800 text-center hover:border-teal-500/40 transition-all group hover:-translate-y-2 hover:shadow-2xl hover:shadow-teal-500/10">
@@ -36,9 +38,7 @@ const Footer = () => {
         <div className="grid md:grid-cols-3 gap-16 border-t border-slate-900 pt-16">
           <div className="space-y-6">
             <div className="flex items-center space-x-2 font-bold text-2xl text-white">
-              <div className="p-1 rounded bg-teal-600">
-                <Terminal className="w-5 h-5 text-white" />
-              </div>
+              <img src={Logo} alt="CodeChef WCE Logo" className="w-10 h-10 rounded-full object-cover" />
               <span>CodeChef <span className="text-teal-400">WCE</span></span>
             </div>
             <p className="text-slate-400 leading-relaxed">
@@ -46,9 +46,10 @@ const Footer = () => {
               Building the next generation of problem solvers at WCE.
             </p>
             <div className="flex space-x-4 pt-2">
-              <a href="#" className="w-10 h-10 rounded-lg bg-slate-900 flex items-center justify-center text-slate-400 hover:bg-teal-600 hover:text-white transition-all border border-slate-800"><Instagram size={20} /></a>
-              <a href="#" className="w-10 h-10 rounded-lg bg-slate-900 flex items-center justify-center text-slate-400 hover:bg-blue-600 hover:text-white transition-all border border-slate-800"><Linkedin size={20} /></a>
-              <a href="#" className="w-10 h-10 rounded-lg bg-slate-900 flex items-center justify-center text-slate-400 hover:bg-slate-700 hover:text-white transition-all border border-slate-800"><Github size={20} /></a>
+              <a href="https://www.instagram.com/codechef_wce_chapter" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg bg-slate-900 flex items-center justify-center text-slate-400 hover:bg-teal-600 hover:text-white transition-all border border-slate-800"><Instagram size={20} /></a>
+              <a href="https://www.linkedin.com/company/wce-codechef-chapter/" target="_blank" rel="noopener noreferrer"className="w-10 h-10 rounded-lg bg-slate-900 flex items-center justify-center text-slate-400 hover:bg-blue-600 hover:text-white transition-all border border-slate-800"><Linkedin size={20} /></a>
+
+              <a href="https://youtube.com/@codechefwcechapter?si=XgjiB4jrtDxh_fcq" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg bg-slate-900 flex items-center justify-center text-slate-400 hover:bg-slate-700 hover:text-white transition-all border border-slate-800"><Youtube size={20} /></a>
             </div>
           </div>
           
@@ -65,7 +66,7 @@ const Footer = () => {
             <h4 className="text-white font-bold text-lg mb-6 flex items-center"><Server className="w-4 h-4 text-teal-500 mr-2" /> Contact Us</h4>
             <ul className="space-y-5 text-slate-400">
               <li className="flex items-start"><MapPin className="w-5 h-5 text-teal-500 mr-4 mt-1 flex-shrink-0" /><span>Walchand College of Engineering,<br />Vishrambag, Sangli - 416415</span></li>
-              <li className="flex items-center"><Mail className="w-5 h-5 text-teal-500 mr-4 flex-shrink-0" /><span>codechefwce@walchandsangli.ac.in</span></li>
+              <li className="flex items-center"><Mail className="w-5 h-5 text-teal-500 mr-4 flex-shrink-0" /><span>wcecodechefchapter@gmail.com</span></li>
             </ul>
           </div>
         </div>
