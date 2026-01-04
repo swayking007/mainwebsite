@@ -12,7 +12,23 @@ const Team = () => {
     // Replace with your actual backend URL
     axios.get('https://datafeelupcwc.vercel.app/api/members')
       .then(res => {
-        setMembers(res.data);
+        // --- LOGIC: REMOVE DUPLICATES ---
+        // We use a Map to store members. The key is "Name-Year".
+        // Since Map.set() overwrites existing keys, iterating through the list
+        // will naturally keep only the *last* entry found for that specific name+year.
+        
+        const uniqueMembersMap = new Map();
+
+        res.data.forEach(member => {
+            // Normalize name (lowercase, trim spaces) to ensure accurate matching
+            const uniqueKey = `${member.name.trim().toLowerCase()}-${member.yearOfPassing}`;
+            uniqueMembersMap.set(uniqueKey, member);
+        });
+
+        // Convert the Map values back into an array
+        const uniqueList = Array.from(uniqueMembersMap.values());
+
+        setMembers(uniqueList);
         setLoading(false);
       })
       .catch(err => {
