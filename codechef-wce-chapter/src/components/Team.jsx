@@ -8,24 +8,44 @@ const Team = () => {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('current'); // 'current' or 'mentors'
 
+  // --- CONFIGURATION: ROLE PRIORITY ---
+  const mainRoleOrder = [
+    "President", 
+    "Vice President", 
+    "CP Lead", 
+    "Social Lead", 
+    "CP Executive", 
+    "Design Head", 
+    "Revenue Manager", 
+    "Web Developer", 
+    "Secretary", 
+    "Club Service Director"
+  ];
+
+  const assistantRoleOrder = [
+    "Assistant Member", 
+    "Assistant Secretary", // trimmed space from your input for safety
+    "Assistant Revenue Manager", 
+    "Public Relationship Officer", 
+    "Assistant Designer", 
+    "Assistant Editor", 
+    "Event Manager", 
+    "Assistant CP Executive"
+  ];
+
   useEffect(() => {
     // Replace with your actual backend URL
     axios.get('https://datafeelupcwc.vercel.app/api/members')
       .then(res => {
         // --- LOGIC: REMOVE DUPLICATES ---
-        // We use a Map to store members. The key is "Name-Year".
-        // Since Map.set() overwrites existing keys, iterating through the list
-        // will naturally keep only the *last* entry found for that specific name+year.
-        
         const uniqueMembersMap = new Map();
 
         res.data.forEach(member => {
-            // Normalize name (lowercase, trim spaces) to ensure accurate matching
+            // Normalize name (lowercase, trim spaces)
             const uniqueKey = `${member.name.trim().toLowerCase()}-${member.yearOfPassing}`;
             uniqueMembersMap.set(uniqueKey, member);
         });
 
-        // Convert the Map values back into an array
         const uniqueList = Array.from(uniqueMembersMap.values());
 
         setMembers(uniqueList);
@@ -40,28 +60,43 @@ const Team = () => {
   // --- LOGIC: AUTO-MOVE TO MENTORS ---
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
-  const currentMonth = currentDate.getMonth(); // 0 = Jan, 4 = May
+  const currentMonth = currentDate.getMonth(); 
 
   const isMentor = (member) => {
-    // 1. Explicitly marked as Mentor in DB
     if (member.board === 'Mentor') return true;
-
-    // 2. Logic: If Passing Year < Current Year (Graduated)
     if (member.yearOfPassing < currentYear) return true;
-    
-    // 3. Logic: If Passing Year == Current Year AND Month > May (Graduated in June)
     if (member.yearOfPassing === currentYear && currentMonth > 4) return true;
-
     return false;
   };
 
   const currentTeam = members.filter(m => !isMentor(m));
-  const mentors = members.filter(m => isMentor(m));
+  
+  // --- SORTING LOGIC ---
+  
+  // Helper to find index/priority of a role
+  const getRolePriority = (role, orderArray) => {
+    const index = orderArray.indexOf(role);
+    // If role not found in list, put it at the end (999)
+    return index === -1 ? 999 : index;
+  };
 
-  // Sort Current Team by Board
-  const mainBoard = currentTeam.filter(m => m.board === 'Main');
-  const assistantBoard = currentTeam.filter(m => m.board === 'Assistant');
+  // 1. Sort Main Board
+  const mainBoard = currentTeam
+    .filter(m => m.board === 'Main')
+    .sort((a, b) => getRolePriority(a.post, mainRoleOrder) - getRolePriority(b.post, mainRoleOrder));
+
+  // 2. Sort Assistant Board
+  const assistantBoard = currentTeam
+    .filter(m => m.board === 'Assistant')
+    .sort((a, b) => getRolePriority(a.post, assistantRoleOrder) - getRolePriority(b.post, assistantRoleOrder));
+
+  // 3. Member Board (No specific sort)
   const memberBoard = currentTeam.filter(m => m.board === 'Member');
+
+  // 4. Mentors (Sorted by Passing Year: Oldest First -> Ascending)
+  const mentors = members
+    .filter(m => isMentor(m))
+    .sort((a, b) => a.yearOfPassing - b.yearOfPassing);
 
   const MemberCard = ({ m }) => {
     let borderColor = "border-slate-800";
