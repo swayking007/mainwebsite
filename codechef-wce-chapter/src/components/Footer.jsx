@@ -37,7 +37,7 @@ const Footer = () => {
               <StaffCard name="Dr. U.B. Chavan" role="STAFF ADVISOR" image={Chavan} color="from-blue-500 to-indigo-600" iconColor="text-blue-500" />
             </div>
             <div className="flex-1">
-              <StaffCard name="Mr. M.A. Urunkar" role="STAFF ADVISOR" image={Urunkar} color="from-purple-500 to-pink-600" iconColor="text-purple-500" />
+              <StaffCard name="Mr. A.A. Urunkar" role="STAFF ADVISOR" image={Urunkar} color="from-purple-500 to-pink-600" iconColor="text-purple-500" />
             </div>
           </div>
         </div>

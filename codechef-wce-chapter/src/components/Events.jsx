@@ -1,6 +1,7 @@
-import React from 'react';
-import { Calendar,Flame ,  Trophy } from 'lucide-react';
+import React, { useState } from 'react';
+import { Calendar, Flame, Trophy, ChevronDown, ChevronUp } from 'lucide-react';
 import SectionHeader from './SectionHeader';
+import HallOfFame from './HallOfFame';
 
 const EventCard = ({ title, date, desc, tags, imageColor, link }) => {
   // If link exists, wrap the card in <a>
@@ -56,70 +57,70 @@ const EventCard = ({ title, date, desc, tags, imageColor, link }) => {
 };
 
 const Events = () => {
- const eventsList = [
-  {
-    title: "WCPC 2025",
-    date: "Oct 2, 2025",
-    desc: "Flagship offline programming contest at Main CCF. 27 teams competed. Guest speaker: Mr. Vivek Gupta (ICPC Finalist).",
-    tags: ["Contest", "Offline", "ICPC"],
-    imageColor: "from-teal-500 to-cyan-600",
-    link: "https://wcpc-2k25.vercel.app"
-    
-  },
-  {
-    title: "C++ Bootcamp",
-    date: "Jan 19–20, 2025",
-    desc: "2-day workshop on C++ basics, STL, and OOP fundamentals in collaboration with ACSES.",
-    tags: ["Workshop", "C++", "STL"],
-    imageColor: "from-emerald-500 to-green-600"
-  },
-  {
-    title: "Coffee With Chef",
-    date: "Periodic",
-    desc: "Expert sessions with alumni from Google & CRED on CP growth and interview insights.",
-    tags: ["Talk", "Alumni", "Guidance"],
-    imageColor: "from-amber-500 to-orange-600"
-  },
-  {
-    title: "Interstellar (GIM)",
-    date: "Sept 21, 2025",
-    desc: "Freshers meet with club intro, fun activities, and annual roadmap reveal at Tilak Hall.",
-    tags: ["Freshers", "GIM", "Roadmap"],
-    imageColor: "from-fuchsia-500 to-rose-600"
-  },
+  const [showAll, setShowAll] = useState(false);
 
-  {
-    title: "PCD (Post Contest Discussions)",
-    date: "Weekly",
-    desc: "Breakdown of recent CodeChef & Codeforces contest problem approaches.",
-    tags: ["Discussion", "Approach", "Contests"],
-    imageColor: "from-teal-500 to-cyan-600"
-  },
-  {
-    title: "Algorithm Arcade",
-    date: "June–July 2025",
-    desc: "Team CP topic presentations followed by a concept-based club contest.",
-    tags: ["Teams", "Algorithms", "Contest"],
-    imageColor: "from-purple-500 to-indigo-600"
-  },
-  {
-    title: "Clash of Code",
-    date: "December 2025",
-    desc: "4-week CP sprint with weekly challenge sheets and practice tasks.",
-    tags: ["Practice", "Sprint", "CP"],
-    imageColor: "from-blue-500 to-sky-600"
-  },
-  {
-    title: "Cookbook 3.0",
-    date: "2026",
-    desc: "Student-led sessions on advanced DSA with hands-on problem solving.",
-    tags: ["DSA", "Learning", "Community"],
-    imageColor: "from-fuchsia-500 to-rose-600",
-    link: "https://cookbook30.netlify.app"
+  const eventsList = [
+    {
+      title: "C++ Bootcamp",
+      date: "Jan 19–20, 2025",
+      desc: "2-day workshop on C++ basics, STL, and OOP fundamentals in collaboration with ACSES.",
+      tags: ["Workshop", "C++", "STL"],
+      imageColor: "from-emerald-500 to-green-600"
+    },
+    {
+      title: "Algorithm Arcade",
+      date: "June–July 2025",
+      desc: "Team CP topic presentations followed by a concept-based club contest.",
+      tags: ["Teams", "Algorithms", "Contest"],
+      imageColor: "from-purple-500 to-indigo-600"
+    },
+    {
+      title: "Interstellar (GIM)",
+      date: "Sept 21, 2025",
+      desc: "Freshers meet with club intro, fun activities, and annual roadmap reveal at Tilak Hall.",
+      tags: ["Freshers", "GIM", "Roadmap"],
+      imageColor: "from-fuchsia-500 to-rose-600"
+    },
+    {
+      title: "WCPC 2025",
+      date: "Oct 2, 2025",
+      desc: "Flagship offline programming contest at Main CCF. 27 teams competed. Guest speaker: Mr. Vivek Gupta (ICPC World Finalist).",
+      tags: ["Contest", "Offline", "ICPC"],
+      imageColor: "from-teal-500 to-cyan-600",
+      link: "https://wcpc-2k25.vercel.app"
+    },
+    {
+      title: "Clash of Code",
+      date: "December 2025",
+      desc: "4-week CP sprint with weekly challenge sheets and practice tasks.",
+      tags: ["Practice", "Sprint", "CP"],
+      imageColor: "from-blue-500 to-sky-600"
+    },
+    {
+      title: "Cookbook 3.0",
+      date: "2026",
+      desc: "Student-led sessions on advanced DSA with hands-on problem solving.",
+      tags: ["DSA", "Learning", "Community"],
+      imageColor: "from-fuchsia-500 to-rose-600",
+      link: "https://cookbook3.codechef-wce-chapter.org/"
+    },
+    {
+      title: "Coffee With Chef",
+      date: "Periodic",
+      desc: "Expert sessions with alumni from Google & CRED on CP growth and interview insights.",
+      tags: ["Talk", "Alumni", "Guidance"],
+      imageColor: "from-amber-500 to-orange-600"
+    },
+    {
+      title: "PCD (Post Contest Discussions)",
+      date: "Weekly",
+      desc: "Breakdown of recent CodeChef & Codeforces contest problem approaches.",
+      tags: ["Discussion", "Approach", "Contests"],
+      imageColor: "from-teal-500 to-cyan-600"
+    }
+  ];
 
-  }
-];
-
+  const visibleEvents = showAll ? eventsList : eventsList.slice(0, 4);
 
   return (
     <section id="events" className="py-24 bg-slate-950 border-b border-slate-900">
@@ -129,11 +130,32 @@ const Events = () => {
           subtitle="From intense coding battles to insightful talk shows, see how we keep the spirit of programming alive."
         />
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 mb-20">
-          {eventsList.map((event, idx) => (
+        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 mb-12">
+          {visibleEvents.map((event, idx) => (
             <EventCard key={idx} {...event} />
           ))}
         </div>
+
+        {eventsList.length > 4 && (
+          <div className="flex justify-center mb-20">
+            <button
+              onClick={() => setShowAll(!showAll)}
+              className="group flex items-center gap-2 px-6 py-3 rounded-full bg-slate-900 border border-teal-500/30 text-teal-400 font-semibold hover:bg-teal-500/10 hover:border-teal-500/60 transition-all duration-300"
+            >
+              {showAll ? (
+                <>
+                  Show Less <ChevronUp className="w-4 h-4 group-hover:-translate-y-1 transition-transform" />
+                </>
+              ) : (
+                <>
+                  Show More <ChevronDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
+                </>
+              )}
+            </button>
+          </div>
+        )}
+
+        <HallOfFame />
 
         {/* Winners Section */}
         <div className="relative rounded-3xl overflow-hidden bg-slate-900 border border-teal-500/30 p-8 md:p-12 text-center">
