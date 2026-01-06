@@ -75,7 +75,7 @@ const Events = () => {
       imageColor: "from-purple-500 to-indigo-600"
     },
     {
-      title: "Interstellar (GIM)",
+      title: "Codestellar (GIM)",
       date: "Sept 21, 2025",
       desc: "Freshers meet with club intro, fun activities, and annual roadmap reveal at Tilak Hall.",
       tags: ["Freshers", "GIM", "Roadmap"],
